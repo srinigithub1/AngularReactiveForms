@@ -1,0 +1,81 @@
+<hello name="{{ name }}"></hello>
+<p>Reactive Form Demo</p>
+
+<hello name="{{ name }}"></hello>
+<p>Start editing to see some magic happen :)</p>
+<h2>{{ title }}</h2>
+
+<h2>template driver form</h2>
+<div>
+  <form [formGroup]="loginForm" (ngSubmit)="registerUser()">
+    <table style=" width:60%;" cellpadding="5" cell-spacing="5">
+      <tr>
+        <td style="width:40%">
+          <label for="userName"> Enter your name: </label>
+        </td>
+        <td style="width:=60%">
+          <input
+            type="text"
+            name="userName"
+            id="userName"
+            [formControl]="userName"
+          />
+          <div [hidden]="userName.valid || userName.untouched" class="error">
+            <div [hidden]="!userName.hasError('minlength')">
+              User Name can't be shorter then 5 char
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width:40%">
+          <label for="email"> Enter EmailID: </label>
+        </td>
+        <td style="width:=60%">
+          <input type="email" name="Email" id="Email" [formControl]="Email" />
+        </td>
+
+        <div [hidden]="Email.valid || Email.untouched" class="error">
+          <div [hidden]="!Email.hasError('required')">Email is Required</div>
+        </div>
+      </tr>
+
+      <tr>
+        <td style="width:40%">
+          <label for="passwd"> Enter password: </label>
+        </td>
+        <td style="width:=60%">
+          <input
+            type="password"
+            minlength="8"
+            name="passwd"
+            id="passwd"
+            [formControl]="passwd"
+            required
+          />
+
+          <div [hidden]="passwd.valid || passwd.untouched" class="error">
+            <div [hidden]="!passwd.hasError('required')">
+              Password is Required
+            </div>
+            <div [hidden]="!passwd.hasError('needsExclamation')">
+              Password Required exclamation ....
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="width:40%"></td>
+        <td style="width:=60%">
+          <button type="submit" [disabled]="loginForm.valid">SignUp</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+  <div *ngIf="showMessage">
+    <h3>Thanks You {{ formData.Email }} for Registreation</h3>
+  </div>
+</div>
